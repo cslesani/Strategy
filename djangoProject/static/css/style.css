@@ -1,6 +1,8 @@
+
+
 body {
   background: #f5f5f5;
-  font-family: sans-serif;
+  font-family: 'Yekan', sans-serif !important;
   direction: rtl;
   text-align: right;
 }
@@ -8,10 +10,13 @@ body {
 .sidebar {
   height: 100vh;
   background: #ffffff;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd; /* چون صفحه راست به چپ است */
   padding: 20px;
   border-radius: 20px 0 0 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar .nav-link {
@@ -21,6 +26,9 @@ body {
   margin: 5px 0;
   color: #333;
   transition: background 0.3s;
+  text-align: right;
+  display: block;
+  text-decoration: none;
 }
 
 .sidebar .nav-link:hover {
@@ -44,6 +52,7 @@ body {
   border-radius: 20px;
   padding: 10px 20px;
 }
+
 .chart-placeholder {
   height: 300px;
   background: #f9f9f9;
