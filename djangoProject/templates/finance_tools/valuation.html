@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}مدل‌های ارزش‌گذاری{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">تحلیل ارزش‌گذاری (DCF و Multiple)</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ثبت مدل</button>
+  </form>
+
+  <ul class="list-group">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.company }}</strong> |
+        DCF: {{ item.dcf_val|floatformat:0 }} تومان |
+        Multiple: {{ item.multiple_val|floatformat:0 }} تومان
+      </li>
+    {% empty %}
+      <li class="list-group-item">داده‌ای وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

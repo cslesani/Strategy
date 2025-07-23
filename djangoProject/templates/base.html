@@ -12,6 +12,23 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <style>
+    /* مخفی کردن نوار اسکرول */
+    .hide-scrollbar {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE 10+ */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
+    .user-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+  </style>
 </head>
 
 <body>
@@ -19,34 +36,136 @@
     <div class="row">
 
       <!-- Sidebar راست‌چین -->
-      <div class="col-md-2 bg-light p-3 border-start sidebar d-flex flex-column justify-content-between min-vh-100">
+      <div class="col-md-2 bg-light p-3 border-start sidebar d-flex flex-column min-vh-100">
 
-        <!-- لوگو و منو -->
-        <div>
-          <h4 class="mb-4 fw-bold " >استراتژی</h4>
-          <nav class="nav flex-column text-end gap-2" >
-            <a class="nav-link" href="#" style="text-align: right">داشبورد</a>
-            <a class="nav-link" href="#" style="text-align: right">ابزارهای استراتژیک</a>
-            <a class="nav-link" href="#" style="text-align: right">ابزارهای مالی</a>
-            <a class="nav-link" href="#" style="text-align: right" >منابع انسانی و توسعه</a>
-            <a class="nav-link" href="#" style="text-align: right">بازاریابی و فروش</a>
-            <a class="nav-link" href="#" style="text-align: right">عملیات و پروژه</a>
-            <a class="nav-link" href="#" style="text-align: right">فناوری و داده</a>
-            <a class="nav-link" href="#" style="text-align: right">گزارش‌دهی و تصمیم‌گیری</a>
-            <a class="nav-link" href="#" style="text-align: right">کاربران</a>
-          </nav>
+        <!-- منو و لوگو: فضای باقی‌مانده رو بگیره و اسکرول‌خور باشه -->
+        <div class="flex-grow-1 overflow-auto hide-scrollbar">
+          <h4 class="mb-4 fw-bold ">استراتژی</h4>
+          <nav class="nav flex-column text-end gap-2">
+
+              <a class="nav-link" href="{% url 'dashboard' %}" style="text-align: right">داشبورد</a>
+            
+              <!-- ابزارهای استراتژیک -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#strategicTools" role="button" aria-expanded="false" style="text-align: right">
+                ابزارهای استراتژیک
+              </a>
+              <div class="collapse" id="strategicTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'swot' %}">تحلیل SWOT</a>
+                  <a class="nav-link" href="{% url 'pestel' %}">تحلیل PESTEL</a>
+                  <a class="nav-link" href="{% url 'porter' %}">۵ نیروی پورتر</a>
+                  <a class="nav-link" href="{% url 'bcg' %}">ماتریس BCG</a>
+                  <a class="nav-link" href="{% url 'ansoff' %}">ماتریس Ansoff</a>
+                  <a class="nav-link" href="{% url 'canvas' %}">بوم مدل کسب‌وکار</a>
+                  <a class="nav-link" href="{% url 'valueprop' %}">بوم ارزش پیشنهادی</a>
+                </nav>
+              </div>
+            
+              <!-- ابزارهای مالی -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#financeTools" role="button" aria-expanded="false" style="text-align: right">
+                ابزارهای مالی
+              </a>
+              <div class="collapse" id="financeTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'budgeting' %}">ابزار بودجه‌بندی</a>
+                  <a class="nav-link" href="{% url 'cashflow_forecast' %}">پیش‌بینی جریان نقدی</a>
+                  <a class="nav-link" href="{% url 'break_even' %}">نقطه سر به سر</a>
+                  <a class="nav-link" href="{% url 'roi_payback' %}">بازگشت سرمایه و دوره بازگشت</a>
+                  <a class="nav-link" href="{% url 'valuation_models' %}">مدل‌های ارزش‌گذاری</a>
+                </nav>
+              </div>
+            
+              <!-- منابع انسانی و توسعه -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#hrTools" role="button" aria-expanded="false" style="text-align: right">
+                منابع انسانی و توسعه
+              </a>
+              <div class="collapse" id="hrTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'org_chart' %}">چارت سازمانی</a>
+                  <a class="nav-link" href="{% url 'competency_models' %}">مدل‌های شایستگی</a>
+                  <a class="nav-link" href="{% url 'performance_appraisal' %}">فرم‌های ارزیابی عملکرد</a>
+                  <a class="nav-link" href="{% url 'kpi_dashboard' %}">داشبورد KPI</a>
+                  <a class="nav-link" href="{% url 'okr_framework' %}">چارچوب OKR</a>
+                </nav>
+              </div>
+            
+              <!-- بازاریابی و فروش -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#marketingTools" role="button" aria-expanded="false" style="text-align: right">
+                بازاریابی و فروش
+              </a>
+              <div class="collapse" id="marketingTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'customer_persona' %}">پرسونای مشتری</a>
+                  <a class="nav-link" href="{% url 'customer_journey' %}">نقشه سفر مشتری</a>
+                  <a class="nav-link" href="{% url 'sales_funnel' %}">قیف فروش</a>
+                  <a class="nav-link" href="{% url 'marketing_plan' %}">برنامه بازاریابی</a>
+                  <a class="nav-link" href="{% url 'marketing_mix' %}">آمیخته بازاریابی</a>
+                  <a class="nav-link" href="{% url 'digital_marketing' %}">ابزارهای دیجیتال مارکتینگ</a>
+                </nav>
+              </div>
+            
+              <!-- عملیات و پروژه -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#opsTools" role="button" aria-expanded="false" style="text-align: right">
+                عملیات و پروژه
+              </a>
+              <div class="collapse" id="opsTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'process_mapping' %}">مدلسازی فرآیند</a>
+                  <a class="nav-link" href="{% url 'sops' %}">روش‌های اجرایی استاندارد</a>
+                  <a class="nav-link" href="{% url 'quality_tools' %}">ابزارهای بهبود کیفیت</a>
+                  <a class="nav-link" href="{% url 'project_management' %}">مدیریت پروژه</a>
+                  <a class="nav-link" href="{% url 'kanban_scrum' %}">Kanban / Scrum Board</a>
+                </nav>
+              </div>
+            
+              <!-- فناوری و داده -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#techTools" role="button" aria-expanded="false" style="text-align: right">
+                فناوری و داده
+              </a>
+              <div class="collapse" id="techTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'erp' %}">سیستم ERP</a>
+                  <a class="nav-link" href="{% url 'crm' %}">سیستم CRM</a>
+                  <a class="nav-link" href="{% url 'bi_dashboard' %}">داشبورد BI</a>
+                  <a class="nav-link" href="{% url 'data_analytics' %}">ابزارهای تحلیل داده</a>
+                </nav>
+              </div>
+            
+              <!-- گزارش‌دهی و تصمیم‌گیری -->
+              <a class="btn btn-light" data-bs-toggle="collapse" href="#reportingTools" role="button" aria-expanded="false" style="text-align: right">
+                گزارش‌دهی و تصمیم‌گیری
+              </a>
+              <div class="collapse" id="reportingTools">
+                <nav class="nav flex-column text-end ms-3">
+                  <a class="nav-link" href="{% url 'balanced_scorecard' %}">کارت امتیازی متوازن</a>
+                  <a class="nav-link" href="{% url 'benchmarking' %}">الگوبرداری</a>
+                  <a class="nav-link" href="{% url 'gap_analysis' %}">تحلیل فاصله</a>
+                  <a class="nav-link" href="{% url 'risk_matrix' %}">ماتریس ریسک</a>
+                </nav>
+              </div>
+            
+              <!-- کاربران -->
+              <a class="nav-link" href="#" style="text-align: right">کاربران</a>
+            
+            </nav>
+
+
         </div>
 
-        <!-- اطلاعات کاربر -->
-        <div class="pt-5">
-          <div class="d-flex align-items-center justify-content-end">
-            <div class="me-2 text-end">
-              <strong>سجاد روح‌الهی</strong><br>
-              <small class="text-muted">مدیر</small>
+        <div class="pt-3 mt-3 bg-white p-3 rounded-4 shadow-sm d-flex align-items-center" style="cursor: default;">
+              <div class="position-relative">
+                <img src="{% static 'image/img.png' %}" class="rounded-circle border border-2 border-primary user-img" alt="User">
+
+
+                <span class="position-absolute bottom-0 start-100 translate-middle p-2 bg-success border border-white rounded-circle" title="آنلاین"></span>
+              </div>
+              <div class="me-4" >
+                <strong class="d-block fs-6 text-primary">سیدعلی رشیدی</strong>
+                <small class="text-muted">مدیر</small>
+              </div>
             </div>
-            <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
-          </div>
-        </div>
+
+
       </div>
 
       <!-- محتوای اصلی -->

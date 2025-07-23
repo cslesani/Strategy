@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}ماتریس ریسک{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">ماتریس ریسک</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.title }}</strong><br>
+        شرح ریسک: {{ item.risk_description }}<br>
+        احتمال: {{ item.likelihood }}<br>
+        تاثیر: {{ item.impact }}<br>
+        <small class="text-muted">{{ item.created_at|date:"Y/m/d H:i" }}</small>
+      </li>
+    {% empty %}
+      <li class="list-group-item">موردی ثبت نشده است.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

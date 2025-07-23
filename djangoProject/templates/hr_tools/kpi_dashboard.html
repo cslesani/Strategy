@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block title %}داشبورد KPI{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">شاخص‌های کلیدی عملکرد</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">{% for item in items %}<li class="list-group-item">{{ item.title }} - {{ item.kpis }}</li>{% empty %}<li class="list-group-item">هیچ شاخصی ثبت نشده است.</li>{% endfor %}</ul>
+</div>
+{% endblock %}
+
+</html>

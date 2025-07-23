@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block title %}ابزارهای دیجیتال مارکتینگ{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">ابزارهای دیجیتال مارکتینگ</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">{% for item in items %}
+    <li class="list-group-item"><strong>{{ item.category }}</strong>: {{ item.tools }}<br>{{ item.description }}</li>
+  {% empty %}
+    <li class="list-group-item">ابزاری ثبت نشده است.</li>
+  {% endfor %}</ul>
+</div>
+{% endblock %}
+
+</html>

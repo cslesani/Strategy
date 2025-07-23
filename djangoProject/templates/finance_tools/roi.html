@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}بازگشت سرمایه و دوره بازگشت{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">تحلیل ROI و Payback</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ثبت تحلیل</button>
+  </form>
+
+  <ul class="list-group">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.project_name }}</strong> |
+        سود خالص: {{ item.net_profit }} | سرمایه‌گذاری: {{ item.investment }}
+        <br>
+        ROI: {{ item.roi_value|floatformat:2 }}% |
+        دوره بازگشت: {{ item.payback_value }} ماه
+      </li>
+    {% empty %}
+      <li class="list-group-item">داده‌ای وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}تحلیل SWOT - {{ swot.title }}{% endblock %}
+
+{% block content %}
+<div class="container my-1">
+  <div class="card p-4 bg-white rounded shadow-sm">
+    <h2 class="mb-4">تحلیل SWOT: {{ swot.title }}</h2>
+
+    <div class="row">
+      <!-- Strength -->
+      <div class="col-md-6 mb-4">
+        <div class="card p-3">
+          <h5>قوت‌ها</h5>
+          <ul class="list-group mb-3">
+            {% for item in swot.strengths.all %}
+              <li class="list-group-item d-flex justify-content-between">
+                {{ item.text }} <span class="badge bg-secondary">{{ item.weight }}</span>
+              </li>
+            {% empty %}
+              <li class="list-group-item">موردی ثبت نشده است.</li>
+            {% endfor %}
+          </ul>
+          <form method="post">
+            {% csrf_token %}
+            {{ strength_form.text.label_tag }} {{ strength_form.text }}
+            {{ strength_form.weight.label_tag }} {{ strength_form.weight }}
+            <button name="add_strength" class="btn btn-success btn-sm mt-2" type="submit">افزودن قوت</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Weakness -->
+      <div class="col-md-6 mb-4">
+        <div class="card p-3">
+          <h5>ضعف‌ها</h5>
+          <ul class="list-group mb-3">
+            {% for item in swot.weaknesses.all %}
+              <li class="list-group-item d-flex justify-content-between">
+                {{ item.text }} <span class="badge bg-secondary">{{ item.weight }}</span>
+              </li>
+            {% empty %}
+              <li class="list-group-item">موردی ثبت نشده است.</li>
+            {% endfor %}
+          </ul>
+          <form method="post">
+            {% csrf_token %}
+            {{ weakness_form.text.label_tag }} {{ weakness_form.text }}
+            {{ weakness_form.weight.label_tag }} {{ weakness_form.weight }}
+            <button name="add_weakness" class="btn btn-danger btn-sm mt-2" type="submit">افزودن ضعف</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Opportunity -->
+      <div class="col-md-6 mb-4">
+        <div class="card p-3">
+          <h5>فرصت‌ها</h5>
+          <ul class="list-group mb-3">
+            {% for item in swot.opportunities.all %}
+              <li class="list-group-item d-flex justify-content-between">
+                {{ item.text }} <span class="badge bg-secondary">{{ item.weight }}</span>
+              </li>
+            {% empty %}
+              <li class="list-group-item">موردی ثبت نشده است.</li>
+            {% endfor %}
+          </ul>
+          <form method="post">
+            {% csrf_token %}
+            {{ opportunity_form.text.label_tag }} {{ opportunity_form.text }}
+            {{ opportunity_form.weight.label_tag }} {{ opportunity_form.weight }}
+            <button name="add_opportunity" class="btn btn-primary btn-sm mt-2" type="submit">افزودن فرصت</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Threat -->
+      <div class="col-md-6 mb-4">
+        <div class="card p-3">
+          <h5>تهدیدها</h5>
+          <ul class="list-group mb-3">
+            {% for item in swot.threats.all %}
+              <li class="list-group-item d-flex justify-content-between">
+                {{ item.text }} <span class="badge bg-secondary">{{ item.weight }}</span>
+              </li>
+            {% empty %}
+              <li class="list-group-item">موردی ثبت نشده است.</li>
+            {% endfor %}
+          </ul>
+          <form method="post">
+            {% csrf_token %}
+            {{ threat_form.text.label_tag }} {{ threat_form.text }}
+            {{ threat_form.weight.label_tag }} {{ threat_form.weight }}
+            <button name="add_threat" class="btn btn-warning btn-sm mt-2" type="submit">افزودن تهدید</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radar Chart -->
+    <h4 class="mt-5 mb-3">نمودار تحلیلی</h4>
+    <div style="width: 100%; max-width: 600px; height: 400px; margin: auto;">
+      <canvas id="swotChart" style="width: 100%; height: 100%;"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('swotChart').getContext('2d');
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ['قوت', 'ضعف', 'فرصت', 'تهدید'],
+    datasets: [{
+      label: 'تحلیل SWOT',
+      data: [
+        {{ swot.strengths.aggregate_avg_weight|default:0 }},
+        {{ swot.weaknesses.aggregate_avg_weight|default:0 }},
+        {{ swot.opportunities.aggregate_avg_weight|default:0 }},
+        {{ swot.threats.aggregate_avg_weight|default:0 }},
+      ],
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      r: {
+        min: 0,
+        max: 5,
+        ticks: { stepSize: 1 }
+      }
+    }
+  }
+});
+</script>
+{% endblock %}

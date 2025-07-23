@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}ابزار بودجه‌بندی{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">ابزار بودجه‌بندی</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ثبت بودجه</button>
+  </form>
+
+  <ul class="list-group">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.title }}</strong> |
+        بودجه: {{ item.budget }} | هزینه واقعی: {{ item.actual }}
+        <br>
+        انحراف:
+        {{ item.deviation_value }} ({{ item.deviation_percent }}%)
+        <br>
+        وضعیت: <span class="text-{{ item.status_label }}">{{ item.status_label }}</span>
+      </li>
+    {% empty %}
+      <li class="list-group-item">داده‌ای وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}تحلیل PESTEL - {{ pestel.title }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h2>تحلیل PESTEL: {{ pestel.title }}</h2>
+
+  <form method="post" class="mb-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success btn-sm" type="submit">افزودن عامل</button>
+  </form>
+
+  <ul class="list-group">
+    {% for factor in factors %}
+      <li class="list-group-item d-flex justify-content-between">
+        <strong>{{ factor.get_category_display }}</strong>: {{ factor.text }}
+        <span class="badge bg-secondary">{{ factor.weight }}</span>
+      </li>
+    {% empty %}
+      <li class="list-group-item">هیچ عاملی ثبت نشده است.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

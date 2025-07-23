@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ایجاد تحلیل SWOT{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4 text-center">ایجاد تحلیل SWOT جدید</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <!-- عنوان تحلیل -->
+    <div class="mb-4">
+      <label class="form-label">عنوان تحلیل</label>
+      {{ swot_form.title }}
+    </div>
+
+    <div class="row g-4">
+
+      <!-- قوت‌ها -->
+      <div class="col-md-6">
+        <h5 class="text-success">قوت‌ها</h5>
+        {{ strength_formset.management_form }}
+        {% for form in strength_formset %}
+          <div class="border rounded p-3 mb-2">
+            {{ form.text.label_tag }} {{ form.text }}
+            {{ form.weight.label_tag }} {{ form.weight }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- ضعف‌ها -->
+      <div class="col-md-6">
+        <h5 class="text-danger">ضعف‌ها</h5>
+        {{ weakness_formset.management_form }}
+        {% for form in weakness_formset %}
+          <div class="border rounded p-3 mb-2">
+            {{ form.text.label_tag }} {{ form.text }}
+            {{ form.weight.label_tag }} {{ form.weight }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- فرصت‌ها -->
+      <div class="col-md-6">
+        <h5 class="text-primary">فرصت‌ها</h5>
+        {{ opportunity_formset.management_form }}
+        {% for form in opportunity_formset %}
+          <div class="border rounded p-3 mb-2">
+            {{ form.text.label_tag }} {{ form.text }}
+            {{ form.weight.label_tag }} {{ form.weight }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- تهدیدها -->
+      <div class="col-md-6">
+        <h5 class="text-warning">تهدیدها</h5>
+        {{ threat_formset.management_form }}
+        {% for form in threat_formset %}
+          <div class="border rounded p-3 mb-2">
+            {{ form.text.label_tag }} {{ form.text }}
+            {{ form.weight.label_tag }} {{ form.weight }}
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <!-- دکمه ارسال -->
+    <div class="mt-4 text-center">
+      <button type="submit" class="btn btn-success px-4">ثبت تحلیل</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

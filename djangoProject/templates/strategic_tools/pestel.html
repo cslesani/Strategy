@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}تحلیل‌های PESTEL{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="bg-white shadow rounded-4 p-4">
+
+    <h2 class="mb-4">تحلیل‌های PESTEL</h2>
+
+    <form method="post" class="mb-4">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+      <button class="btn btn-primary" type="submit">ثبت تحلیل جدید</button>
+    </form>
+
+    <ul class="list-group rounded-3 overflow-hidden">
+      {% for pestel in pestels %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ pestel.title }}</span>
+          <a class="btn btn-sm btn-outline-primary rounded-pill px-3" href="{% url 'pestel_detail' pestel.id %}">مشاهده</a>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted text-center">هنوز تحلیلی ثبت نشده است.</li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}نقطه سر به سر{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">تحلیل نقطه سر به سر</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ثبت تحلیل</button>
+  </form>
+
+  <ul class="list-group">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.title }}</strong> |
+        هزینه ثابت: {{ item.fixed_cost }} | هزینه متغیر: {{ item.variable_cost }} | قیمت فروش: {{ item.price }}
+        <br>
+        نقطه سر به سر: {{ item.break_even_units_value }} واحد
+      </li>
+    {% empty %}
+      <li class="list-group-item">داده‌ای وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

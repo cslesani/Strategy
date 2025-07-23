@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}پیش‌بینی جریان نقدی{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">پیش‌بینی جریان نقدی</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ثبت جریان نقدی</button>
+  </form>
+
+  <ul class="list-group">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.month }}</strong> |
+        درآمد: {{ item.inflow }} | هزینه: {{ item.outflow }}<br>
+        جریان خالص: {{ item.net_cash }} |
+        وضعیت: {{ item.status_label }}
+      </li>
+    {% empty %}
+      <li class="list-group-item">داده‌ای وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

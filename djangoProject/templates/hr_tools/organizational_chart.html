@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}چارت سازمانی{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">چارت سازمانی</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">{% for item in items %}<li class="list-group-item">{{ item.title }}</li>{% empty %}<li class="list-group-item">چارتی وجود ندارد.</li>{% endfor %}</ul>
+</div>
+{% endblock %}

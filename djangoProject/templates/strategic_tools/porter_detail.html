@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}تحلیل‌های پنج نیروی پورتر{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="bg-white shadow rounded-4 p-4">
+    <h2 class="mb-4 text-primary">تحلیل‌های پنج نیروی پورتر</h2>
+
+    <form method="post" class="mb-4">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit">ثبت تحلیل جدید</button>
+    </form>
+
+    <ul class="list-group">
+      {% for porter in porters %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ porter.title }}
+          <a class="btn btn-sm btn-outline-info" href="{% url 'porter_detail' porter.id %}">مشاهده</a>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">هنوز تحلیلی ثبت نشده است.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}الگوبرداری{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">الگوبرداری</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.title }}</strong><br>
+        موضوع الگوبرداری: {{ item.benchmark_subject }}<br>
+        یادداشت‌ها: {{ item.notes }}<br>
+        <small class="text-muted">{{ item.created_at|date:"Y/m/d H:i" }}</small>
+      </li>
+    {% empty %}
+      <li class="list-group-item">موردی ثبت نشده است.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

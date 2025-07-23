@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}مدیریت پروژه{% endblock %}
+{% block content %}
+<div class="card shadow p-4 rounded-4 bg-white">
+  <h2 class="mb-4">مدیریت پروژه</h2>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">ثبت</button></form>
+  <ul class="list-group mt-3">
+    {% for item in items %}
+      <li class="list-group-item">
+        <strong>{{ item.project_name }}</strong><br>
+        {% if item.gantt_chart_url %}نمودار گانت: <a href="{{ item.gantt_chart_url }}" target="_blank">{{ item.gantt_chart_url }}</a><br>{% endif %}
+        WBS: {{ item.wbs_description }}<br>
+        مسیر بحرانی: {{ item.critical_path_description }}
+      </li>
+    {% empty %}
+      <li class="list-group-item">موردی ثبت نشده است.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

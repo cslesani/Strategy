@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}تحلیل‌های SWOT{% endblock %}
+
+{% block content %}
+<div class="card shadow rounded-4 p-4 bg-white">
+  <h2 class="mb-4">تحلیل‌های SWOT</h2>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ایجاد تحلیل جدید</button>
+  </form>
+
+  <ul class="list-group">
+    {% for swot in swots %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'swot_detail' swot.pk %}" class="text-decoration-none">
+          {{ swot.title }}
+        </a>
+        <span class="badge bg-secondary">{{ swot.created_at|date:"Y/m/d H:i" }}</span>
+      </li>
+    {% empty %}
+      <li class="list-group-item">هیچ تحلیلی وجود ندارد.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
